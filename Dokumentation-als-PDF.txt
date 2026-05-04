@@ -1,0 +1,91 @@
+Leitfaden: Dokumentation von Informatikprojekten
+Eine präzise Dokumentation ist das Rückgrat jedes Software- oder Hardwareprojekts. Sie sichert die Nachvollziehbarkeit, erleichtert die Fehlerdiagnose und ermöglicht es Dritten (oder dir selbst zu einem späteren Zeitpunkt), das Projekt zu verstehen und weiterzuentwickeln.
+
+1. Das Deckblatt (Projektübersicht)
+Die erste Seite dient als Visitenkarte deines Projekts und muss folgende Informationen enthalten:
+
+Titel des Projekts: Ein präziser, aussagekräftiger Name (z. B. „SmartCooler – Automatische Serverraum-Kühlung“).
+
+Projektbeschreibung: Eine kurze Zusammenfassung (2–3 Sätze). Was wurde entwickelt und warum?
+
+Ziele und Anforderungen: Was soll das System leisten? Welche technischen Bedingungen müssen erfüllt sein?
+
+Verwendete Technologien: Auflistung der Hard- und Software (z. B. Python, Raspberry Pi, I2C-Sensoren).
+
+Teammitglieder: Wer hat woran gearbeitet? (Aufgabenverteilung klar benennen).
+
+Datum: Erstellungsdatum oder Datum des Projektabschlusses.
+
+Betreuer/Lehrer: Name der zuständigen Lehrkraft.
+
+2. Inhaltsverzeichnis
+Erstelle eine Übersicht mit Seitenzahlen, damit alle Abschnitte schnell auffindbar sind.
+
+3. Technische Dokumentation
+Systemarchitektur & Hardware
+Beschreibe das Design deines Systems. Wie kommunizieren die Komponenten (z. B. Sensoren, Aktoren, Mikrocontroller) miteinander?
+
+Schaltplan: Erstelle einen professionellen Schaltplan mit Fritzing.
+
+Hinweis: Nutze die Bauteile „I2C-Display“ und „Lüfter“ aus dem Ordner „Komponenten“ in der Schulcloud.
+
+Hardwareliste: Detaillierte Auflistung der verwendeten Bauteile (z. B. DHT22 Temperatursensor, PIR-Bewegungssensor).
+
+Code-Dokumentation
+In diesem Abschnitt erklärst du die Logik deiner Software.
+
+Logik-Visualisierung: Erstelle einen Programmablaufplan (PAP) nach DIN 66001. Nutze hierfür das Tool draw.io.
+
+Quellcode: Füge deinen C++ Code hier ein. Achte auf eine saubere Formatierung als Code-Block:
+
+C++
+
+// Beispiel: Prüfung der Temperatur und Lüftersteuerung
+void checkTemperature() {
+    float temp = sensor.readTemperature();
+    if (temp > 30.0) {
+        digitalWrite(fanPin, HIGH); // Lüfter einschalten
+    } else {
+        digitalWrite(fanPin, LOW);  // Lüfter ausschalten
+    }
+}
+Wichtig: Kommentiere deinen Code direkt im Dokument, um die Funktion wichtiger Methoden zu erklären.
+
+4. Testphase und Fehlerbehandlung
+Kein System läuft sofort fehlerfrei. Dokumentiere den Entwicklungsprozess:
+
+Fehlerprotokoll: Welche Probleme traten auf (z. B. Sensor lieferte keine Werte)? Wie hast du sie gelöst (z. B. Pull-up-Widerstand ergänzt)?
+
+Testreihen: Wie hast du sichergestellt, dass das System zuverlässig arbeitet?
+
+Beispiel: „Test des Lüfter-Schwellenwerts durch Erwärmen des Sensors mit einem Föhn.“
+
+5. Benutzeranleitung
+Schreibe eine kurze Anleitung für Personen, die das System zum ersten Mal bedienen:
+
+Wie wird das System gestartet?
+
+Welche Bedienelemente (Taster, Potentiometer) gibt es?
+
+Wie interpretiert man die Ausgaben auf dem Display?
+
+6. Zusammenfassung und Reflexion
+Schließe die Dokumentation mit einem Rückblick ab:
+
+Ergebnisse: Was funktioniert gut?
+
+Probleme: Wo gibt es noch offene Baustellen?
+
+Ausblick: Welche Funktionen könnten in einer Version 2.0 ergänzt werden?
+
+Warum ist diese Arbeit wichtig?
+Aspekt	Nutzen
+Wartbarkeit	Änderungen sind auch nach Monaten noch leicht umsetzbar.
+Fehlerdiagnose	Probleme werden durch die Struktur schneller lokalisiert.
+Teamarbeit	Alle Beteiligten arbeiten auf dem gleichen Wissensstand.
+Zukunftssicherung	Dein Projekt bleibt für Nachfolger nutzbar und verständlich.
+Fazit: Eine gute Dokumentation ist kein „lästiges Extra“, sondern ein wesentlicher Bestandteil der professionellen Informatik. Sie macht den Unterschied zwischen einem flüchtigen Experiment und einem soliden Projekt.
+
+Hast du bereits eine Skizze für deinen Programmablaufplan in draw.io erstellt oder benötigst du Hilfe bei der Formatierung eines bestimmten Code-Abschnitts?
+
+Zuletzt geändert: Dienstag, 28. April 2026, 11:41
