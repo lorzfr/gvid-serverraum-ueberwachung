@@ -1,53 +1,65 @@
-# gvid-Serverraum--berwachung-test
+# Serverraumüberwachung mit automatischer Lüftersteuerung
 
-In einem Serverraum, der rund um die Uhr in Betrieb ist, müssen Temperatur und Luftzirkulation zuverlässig überwacht werden, um Überhitzung zu vermeiden und Energie effizient zu nutzen.
+Dieses Repository enthält ein Arduino-Projekt zur Überwachung eines Serverraums mit temperaturabhängiger Lüftersteuerung, Abstandserkennung und LCD-Anzeige.
 
 ## Projektziel
 
-Dieses Projekt zeigt eine einfache, praxisnahe **Serverraum-Überwachung mit automatischer Lüftersteuerung** auf Arduino-Basis.
-Je nach Sketch werden Temperatur (TMP36 oder DHT11), Luftfeuchte (DHT11) und Abstand/Anwesenheit (HC-SR04) erfasst.
+Ziel ist eine robuste, leicht nachvollziehbare Steuerung, die:
+- Temperatur kontinuierlich überwacht,
+- den Lüfter per PWM regelt,
+- bei Personenerkennung in Lüfternähe den Lüfter stoppt,
+- bei Sensorfehlern automatisch in einen Failsafe-Modus geht.
 
-## Enthaltene Sketches
+## Aktueller Projektstand (Dateien im Repository)
 
-### 1) `serverroom_fan_control.ino`
-Basisversion mit:
-- **TMP36** (Temperatur über Analog-Pin)
-- **HC-SR04** (Abstand/Personenerkennung)
-- **I2C LCD (16x2)**
-- **PWM-Lüftersteuerung**
+### Arduino-Sketches
+1. `serverroom_fan_control-TMP36.ino`
+   - Sensorik: **TMP36** (Temperatur, analog) + **HC-SR04** (Abstand)
+   - Anzeige: **I2C LCD 16x2**
+   - Logik: Temperatur-Hysterese, PWM-Mapping, Sonar-Failsafe
 
-### 2) `serverroom_fan_control_dht11.ino`
-Erweiterung mit:
-- **DHT11** (Temperatur + Luftfeuchte)
-- **HC-SR04** (Abstand)
-- **Failsafe-Logik** (bei Sensorfehler Lüfter auf 100 %)
-- **Temperatur-Hysterese** für stabileres Schaltverhalten
+2. `serverroom_fan_control_dht11.ino`
+   - Sensorik: **DHT11** (Temperatur + Luftfeuchte) + **HC-SR04** (Abstand)
+   - Anzeige: **I2C LCD 16x2**
+   - Logik: Temperatur-Hysterese, PWM-Mapping, DHT/Sonar-Failsafe
 
-### 3) `serverroom_fan_control_dht11withtempandhumid.ino`
-Variante mit Fokus auf Darstellung von Temperatur/Feuchte inkl. DHT11-Logik sowie Lüfterregelung über PWM.
+> Hinweis: In älteren Dokumentationen werden teilweise andere Dateinamen genannt. Maßgeblich sind die oben genannten tatsächlich vorhandenen Sketch-Dateien.
 
 ## Verwendete Hardware
 
 - Arduino Mega 2560
 - 5V PWM-Lüfter
-- DHT11 oder TMP36 (je nach Sketch)
+- TMP36 **oder** DHT11
 - HC-SR04 Ultraschallsensor
-- I2C LCD (16x2, meist Adresse `0x27`, ggf. `0x3F` testen)
+- I2C LCD (16x2, häufig Adresse `0x27`, alternativ `0x3F`)
+- Jumper-Kabel / Breadboard
 
 ## Benötigte Libraries
 
-Installiere über den Arduino Library Manager:
+Über den Arduino Library Manager installieren:
 - `LiquidCrystal_I2C` (Frank de Brabander)
-- `DHT sensor library` (Adafruit) *(für DHT11-Sketches)*
-- `Adafruit Unified Sensor` *(Abhängigkeit für DHT library)*
+- `DHT sensor library` (Adafruit) *(nur für DHT11-Sketch)*
+- `Adafruit Unified Sensor` *(Abhängigkeit der DHT-Library)*
 
-## Funktionslogik (kurz)
+## Kernlogik
 
-- **Nicht-blockierende Loop** mit `millis()`-Intervallen für Sensoren und Display
-- **Geglättete Temperaturwerte** per Moving Average
-- **Hysterese** (`TEMP_FAN_ON` / `TEMP_FAN_OFF`) gegen ständiges Ein/Aus-Schalten
-- **Personenerkennung**: Bei kurzer Distanz kann der Lüfter deaktiviert werden
-- **Failsafe**: Bei Sensorfehlern wird der Lüfter zur Sicherheit hochgeregelt
+- Nicht-blockierende Zeitsteuerung mit `millis()`
+- Temperaturglättung per Moving Average
+- Hysterese mit `TEMP_FAN_ON` und `TEMP_FAN_OFF`
+- Personenerkennung über Distanzschwelle (`PERSON_DIST_CM`)
+- Failsafe:
+  - TMP36-Sketch: bei Sonarfehler Lüfter auf 100 %
+  - DHT11-Sketch: bei DHT- **oder** Sonarfehler Lüfter auf 100 %
+
+## Schnellstart
+
+1. Hardware aufbauen und verkabeln.
+2. Passenden Sketch öffnen:
+   - `serverroom_fan_control-TMP36.ino` **oder**
+   - `serverroom_fan_control_dht11.ino`
+3. Bibliotheken installieren.
+4. Sketch auf den Arduino Mega 2560 hochladen.
+5. LCD prüfen (bei leerem Display I2C-Adresse `0x27`/`0x3F` testen).
 
 ## Projektstruktur
 
@@ -55,22 +67,29 @@ Installiere über den Arduino Library Manager:
 .
 ├── README.md
 ├── LICENSE
-├── serverroom_fan_control.ino
+├── Dokumentation-als-PDF.txt
+├── doc/
+│   └── dokumenation.md
+├── serverroom_fan_control-TMP36.ino
 ├── serverroom_fan_control_dht11.ino
-├── serverroom_fan_control_dht11withtempandhumid.ino
 ├── serverraumüberwachung.fzz
 ├── IMG_2060.jpeg
 ├── IMG_2066.jpeg
 └── IMG_2067.jpeg
 ```
 
-## Bilder (Aufbau)
+## Dokumentation & Medien
 
-### Aufbau 1
+- Ausführliche Projektdokumentation: `doc/dokumenation.md`
+- Hinweis zur PDF-Abgabe: `Dokumentation-als-PDF.txt`
+- Fritzing-Datei: `serverraumüberwachung.fzz`
+- Aufbaufotos:
+  - `IMG_2060.jpeg`
+  - `IMG_2066.jpeg`
+  - `IMG_2067.jpeg`
+
+## Bilder
+
 ![Aufbau 1](./IMG_2060.jpeg)
-
-### Aufbau 2
 ![Aufbau 2](./IMG_2066.jpeg)
-
-### Aufbau 3
 ![Aufbau 3](./IMG_2067.jpeg)
