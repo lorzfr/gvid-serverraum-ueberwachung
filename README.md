@@ -2,12 +2,12 @@
 
 Arduino-Projekt zur Überwachung eines Serverraums: Temperaturmessung, automatische PWM-Lüftersteuerung, Abstandserkennung als Lüfter-Stopp und Statusanzeige auf einem 16x2-I2C-LCD.
 
-Es gibt zwei Sketch-Varianten:
+Die aktuelle Version enthält zwei gepflegte Sketch-Varianten:
 
 | Sketch | Sensoren | Zusatznutzen |
 |---|---|---|
 | `serverroom_fan_control-TMP36.ino` | TMP36 + HC-SR04 | schnelle analoge Temperaturmessung |
-| `serverroom_fan_control_dht11.ino` | DHT11 + HC-SR04 | Temperatur plus Luftfeuchtigkeit |
+| `serverroom_fan_control_dht11.ino` | DHT11 + HC-SR04 | Temperatur plus Luftfeuchtigkeit auf dem LCD |
 
 ## Funktionen
 
@@ -15,15 +15,20 @@ Es gibt zwei Sketch-Varianten:
   - Einschalten ab `30.0 °C`
   - Ausschalten unter `28.0 °C`
 - PWM-Regelung zwischen `FAN_PWM_MIN = 100` und `FAN_PWM_MAX = 255`
+- Lineare PWM-Abbildung des Temperaturbereichs von `20.0 °C` bis `40.0 °C`
 - Glättung der Temperaturwerte per gleitendem Mittelwert
   - TMP36: 10 Messwerte
   - DHT11: 5 Messwerte
 - Personenerkennung über HC-SR04:
   - unter `50 cm` wird der Lüfter abgeschaltet
+  - Messwerte über `500 cm` oder Timeouts werden als ungültig behandelt
 - Failsafe bei Sensorfehlern:
   - TMP36-Version: HC-SR04-Fehler setzt den Lüfter auf 100 %
   - DHT11-Version: DHT11- oder HC-SR04-Fehler setzt den Lüfter auf 100 %
 - Serielle Debug-Ausgabe mit `9600 Baud`
+- Zeitgesteuerte Messintervalle:
+  - TMP36: Temperatur alle `500 ms`, Abstand alle `200 ms`, LCD alle `1000 ms`
+  - DHT11: Temperatur/Luftfeuchtigkeit alle `2000 ms`, Abstand alle `200 ms`, LCD alle `1000 ms`
 
 ## Hardware
 
@@ -119,9 +124,13 @@ Es gibt zwei Sketch-Varianten:
 │   │   └── dokumenation.md
 │   ├── text/
 │   │   └── Dokumentation-als-PDF.txt
-│   └── word/
-│       ├── Dokumentation.docx
-│       └── Dokumentation von Luca und Lars.docx
+│   ├── word/
+│   │   ├── Dokumentation.alt1.docx
+│   │   ├── Dokumentation.alt2.docx
+│   │   ├── Dokumentation.docx
+│   │   └── Dokumentation.pdf
+│   └── zusammenfassung-und-reflexion.md
+├── .old.serverroom_fan_control_dht11withtempandhumid.ino
 ├── serverroom_fan_control-TMP36.ino
 ├── serverroom_fan_control_dht11.ino
 └── serverraumüberwachung.fzz
@@ -131,7 +140,10 @@ Es gibt zwei Sketch-Varianten:
 
 - Ausführlichere Projektdokumentation: `doc/markdown/dokumenation.md`
 - Hinweis zur PDF-Abgabe: `doc/text/Dokumentation-als-PDF.txt`
-- Word-Dokumentationen: `doc/word/Dokumentation.docx`, `doc/word/Dokumentation von Luca und Lars.docx`
+- Zusammenfassung und Reflexion: `doc/zusammenfassung-und-reflexion.md`
+- PDF-Dokumentation: `doc/word/Dokumentation.pdf`
+- Word-Dokumentationen: `doc/word/Dokumentation.docx`, `doc/word/Dokumentation.alt1.docx`, `doc/word/Dokumentation.alt2.docx`
+- Archivierter alter DHT11-Sketch: `.old.serverroom_fan_control_dht11withtempandhumid.ino`
 - Fritzing-Projekt: `serverraumüberwachung.fzz`
 - Exportierter Breadboard-Aufbau: `doc/images/diagrams/serverraumüberwachung_bb.png`
 - Schematischer Aufbau mit Leiterbahnen: `doc/images/diagrams/serverraumüberwachung_schematik.png`
