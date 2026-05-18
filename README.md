@@ -106,45 +106,54 @@ Es gibt zwei Sketch-Varianten:
 ├── README.md
 ├── LICENSE
 ├── doc/
-│   ├── dokumenation.md
-│   └── Dokumentation-als-PDF.txt
+│   ├── images/
+│   │   ├── diagrams/
+│   │   │   ├── serverraumüberwachung_bb.png
+│   │   │   ├── serverraumüberwachung_schematik.png
+│   │   │   └── serverraumüberwachung_PAP.png
+│   │   └── photos/
+│   │       ├── IMG_2060.jpeg
+│   │       ├── IMG_2066.jpeg
+│   │       └── IMG_2067.jpeg
+│   ├── markdown/
+│   │   └── dokumenation.md
+│   ├── text/
+│   │   └── Dokumentation-als-PDF.txt
+│   └── word/
+│       ├── Dokumentation.docx
+│       └── Dokumentation von Luca und Lars.docx
 ├── serverroom_fan_control-TMP36.ino
 ├── serverroom_fan_control_dht11.ino
-├── serverraumüberwachung.fzz
-├── serverraumüberwachung_bb.png
-├── serverraumüberwachung_schematik.png
-├── serverraumüberwachung_PAP.png
-├── IMG_2060.jpeg
-├── IMG_2066.jpeg
-└── IMG_2067.jpeg
+└── serverraumüberwachung.fzz
 ```
 
 ## Dokumentation und Medien
 
-- Ausführlichere Projektdokumentation: `doc/dokumenation.md`
-- Hinweis zur PDF-Abgabe: `doc/Dokumentation-als-PDF.txt`
+- Ausführlichere Projektdokumentation: `doc/markdown/dokumenation.md`
+- Hinweis zur PDF-Abgabe: `doc/text/Dokumentation-als-PDF.txt`
+- Word-Dokumentationen: `doc/word/Dokumentation.docx`, `doc/word/Dokumentation von Luca und Lars.docx`
 - Fritzing-Projekt: `serverraumüberwachung.fzz`
-- Exportierter Breadboard-Aufbau: `serverraumüberwachung_bb.png`
-- Schematischer Aufbau mit Leiterbahnen: `serverraumüberwachung_schematik.png`
-- Programmablaufplan: `serverraumüberwachung_PAP.png`
-- Fotos des Aufbaus: `IMG_2060.jpeg`, `IMG_2066.jpeg`, `IMG_2067.jpeg`
+- Exportierter Breadboard-Aufbau: `doc/images/diagrams/serverraumüberwachung_bb.png`
+- Schematischer Aufbau mit Leiterbahnen: `doc/images/diagrams/serverraumüberwachung_schematik.png`
+- Programmablaufplan: `doc/images/diagrams/serverraumüberwachung_PAP.png`
+- Fotos des Aufbaus: `doc/images/photos/IMG_2060.jpeg`, `doc/images/photos/IMG_2066.jpeg`, `doc/images/photos/IMG_2067.jpeg`
 
 ## Bilder
 
 ### Fritzing-Aufbau
 
-![Fritzing-Export des Breadboard-Aufbaus](./serverraumüberwachung_bb.png)
+![Fritzing-Export des Breadboard-Aufbaus](./doc/images/diagrams/serverraumüberwachung_bb.png)
 
 ### Schematischer Aufbau
 
-![Schematischer Tischaufbau mit Leiterbahnen](./serverraumüberwachung_schematik.png)
+![Schematischer Tischaufbau mit Leiterbahnen](./doc/images/diagrams/serverraumüberwachung_schematik.png)
 
 ### Programmablaufplan
 
-![Programmablaufplan](./serverraumüberwachung_PAP.png)
+![Programmablaufplan](./doc/images/diagrams/serverraumüberwachung_PAP.png)
 
 ### Realer Aufbau
 
-![Aufbau 1](./IMG_2060.jpeg)
-![Aufbau 2](./IMG_2066.jpeg)
-![Aufbau 3](./IMG_2067.jpeg)
+![Aufbau 1](./doc/images/photos/IMG_2060.jpeg)
+![Aufbau 2](./doc/images/photos/IMG_2066.jpeg)
+![Aufbau 3](./doc/images/photos/IMG_2067.jpeg)
